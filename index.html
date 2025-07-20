@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>like Store</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+  <script>
+     window.supabase =  supabase.createClient(
+  "https://ffnyvmhnyxsrnxalxnqd.supabase.co/",  // ← replace with your project URL
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmbnl2bWhueXhzcm54YWx4bnFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NjEwNzksImV4cCI6MjA2ODIzNzA3OX0.i7SJR8h1EnBy6QnpgiXYmRbfvDb-_oYqPCVH6YdMppo"                         // ← replace with your anon key
+);
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>Gali Mart</h1>
+      <p>From One Piece to Wholesale – We've Got You.</p>
+      <!-- <p>Scroll. Click. Buy. Brag.</p> -->
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for products..." id="search-input" />
+      <button id="search-btn"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="user-actions">
+      <button id="cart-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="categories">
+      <h2>Categories</h2>
+      <div class="category-list">
+        <button class="category-btn active" data-category="all">All</button>
+        <!-- <button class="category-btn" data-category="fruits">Fruits</button> -->
+        <button class="category-btn" data-category="biscuit">Biscuit</button>
+        <button class="category-btn" data-category="dairy">Dairy</button>
+        <button class="category-btn" data-category="snacks">Snacks</button>
+        <button class="category-btn" data-category="drink">Drinks</button>
+        <button class="category-btn" data-category="chocolate">Chocolate</button>
+        <button class="category-btn" data-category="kurkure">Kurkure</button>
+        <button class="category-btn" data-category="noodles">Noodles</button>
+      </div>
+    </section>
+
+    <section class="products" id="products-container">
+      <!-- Products will be loaded here dynamically -->
+    </section>
+
+    <div class="cart-overlay" id="cart-overlay">
+      <div class="cart-modal">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+
+        <div class="user-info">
+          <h3>Your Details</h3>
+          <input type="text" id="user-name" placeholder="Name" required />
+          <input type="tel" id="user-phone" placeholder="Phone Number" required />
+          <textarea id="user-address" placeholder="Delivery Address" required></textarea>
+          <select id="user-area" required>
+            <option value="">Select Area</option>
+            <option value="Koraput">Koraput</option>
+            <option value="Semiliguda">Semiliguda</option>
+            <option value="Damanjodi">Damanjodi</option>
+            <option value="Sunabeda">Sunabeda</option>
+          </select>
+        </div>
+
+        <div class="cart-total">
+          <p>Total: ₹<span id="cart-total-amount">0</span></p>
+          <button id="checkout-btn">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="loading-spinner" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading products...</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
