@@ -284,7 +284,7 @@ Area: ${area}
 Delivery Address: ${address}
 `;
 
-  const whatsappNumber = "91"; // Replace with your number
+  const whatsappNumber = "916371149008"; // Replace with your number
   const encoded = encodeURIComponent(message);
   window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, '_blank');
 
