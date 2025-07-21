@@ -79,6 +79,7 @@ header {
 
 main {
     padding: 20px 5%;
+    margin-left: -10px;
 }
 
 .categories {
