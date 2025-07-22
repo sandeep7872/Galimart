@@ -1,5 +1,9 @@
 
-
+let currentPage = 1;
+let isLoading = false;
+let allLoaded = false;
+let currentCategory = "all";
+let currentSearch = "";
 let products = [];
 let cart = [];
 let tempQty = {};
@@ -15,40 +19,82 @@ const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
 const categoryBtns = document.querySelectorAll('.category-btn');
 const checkoutBtn = document.getElementById('checkout-btn');
+const loadingSpinner = document.getElementById("loading-spinner");
 
-async function fetchProductsFromSheet() {
-  const loadingSpinner = document.getElementById('loading-spinner');
-  loadingSpinner.style.display = 'flex';
-  const url = "https://gmbackend-r0ot.onrender.com/api/products?page=${page}"; // <-- your data URL or local JSON
-
+const backendURL = "https://gmbackend-r0ot.onrender.com/api/products";
+async function fetchProductsFromSheet(page = 1) {
+  isLoading = true;
+  loadingSpinner.style.display = "flex";
+  let url = `${backendURL}?page=${page}`;
+  if (currentCategory && currentCategory !== "all") url += `&category=${currentCategory}`;
+  if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`;
   try {
     const res = await fetch(url);
-    products = await res.json();
-
-    products.forEach(p => {
+    const newProducts = await res.json();
+    newproducts.forEach(p => {
       p.id = parseInt(p.id);
       p.price = parseFloat(p.price);
       p.bulkPrice = parseFloat(p.bulkPrice);
       p.bulkQty = parseInt(p.bulkQty);
       p.inStock = p.inStock === true || p.inStock === "TRUE"  || p.inStock === "true";
     });
-
-    renderProducts(products);
+if (newProducts.length < 20) allLoaded = true;
+    products = [...products, ...newProducts];
+    renderProducts(newProducts);
     updateCart();
   } catch (err) {
     console.error("Error fetching products:", err);
     productsContainer.innerHTML = '<p style="color:red;">Failed to load products.</p>';
   } finally {
-    loadingSpinner.style.display = 'none';
+    loadingSpinner.style.display = "none";
+    isLoading = false;
   }
 }
 
+function resetAndLoad() {
+  currentPage = 1;
+  products = [];
+  allLoaded = false;
+  productsContainer.innerHTML = "";
+  fetchProductsFromSheet(currentPage);
+}
+
+function setupEventListeners() {
+  cartBtn.addEventListener("click", () => (cartOverlay.style.display = "flex"));
+  closeCartBtn.addEventListener("click", () => (cartOverlay.style.display = "none"));
+  searchBtn.addEventListener("click", () => {
+    currentSearch = searchInput.value.trim();
+    resetAndLoad();
+  });
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      currentSearch = searchInput.value.trim();
+      resetAndLoad();
+    }
+  });
+  categoryBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      categoryBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentCategory = btn.dataset.category;
+      resetAndLoad();
+    });
+  });
+  window.addEventListener("scroll", () => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+      !isLoading &&
+      !allLoaded
+    ) {
+      currentPage++;
+      fetchProductsFromSheet(currentPage);
+    }
+  });
+}
 
 function renderProducts(productsToRender) {
-  productsContainer.innerHTML = '';
-
-  productsToRender.forEach(product => {
-
+    productsContainer.innerHTML = '';
+    productsToRender.forEach(product => {
     const isDisabled = product.inStock === false;
     const disabledAttr = isDisabled ? 'disabled' : '';
     const stockText = isDisabled ? '<p style="color:red;">Out of Stock</p>' : '';
@@ -108,25 +154,6 @@ function renderProducts(productsToRender) {
 function updateQtyDisplay(id) {
   document.getElementById(`qty-${id}`).textContent = tempQty[id] || 0;
 }
-
-function setupEventListeners() {
-  cartBtn.addEventListener('click', () => cartOverlay.style.display = 'flex');
-  closeCartBtn.addEventListener('click', () => cartOverlay.style.display = 'none');
-  searchBtn.addEventListener('click', handleSearch);
-  searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
-
-  categoryBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      categoryBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterProductsByCategory(btn.dataset.category);
-    });
-  });
-
-  checkoutBtn.addEventListener('click', sendWhatsAppOrder);
-  productsContainer.addEventListener('click', handleProductAction);
-}
-
 function handleProductAction(e) {
   const target = e.target;
   const productId = parseInt(target.dataset.id);
@@ -292,7 +319,7 @@ Delivery Address: ${address}
   saveCartToStorage();
   updateCart();
 
- // PATCH SHEET  
+   
 
 }
 
