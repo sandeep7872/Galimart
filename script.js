@@ -151,6 +151,37 @@ function renderProducts(productsToRender) {
   });
 }
 
+function setupEventListeners() {
+  cartBtn.addEventListener('click', () => cartOverlay.style.display = 'flex');
+  closeCartBtn.addEventListener('click', () => cartOverlay.style.display = 'none');
+  searchBtn.addEventListener('click', handleSearch);
+  searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
+
+  categoryBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.dataset.category;
+      resetAndLoad();
+    });
+  });
+
+  checkoutBtn.addEventListener('click', sendWhatsAppOrder);
+  productsContainer.addEventListener('click', handleProductAction);
+
+  window.addEventListener("scroll", () => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+      !isLoading &&
+      !allLoaded
+    ) {
+      currentPage++;
+      fetchProductsFromSheet(currentPage);
+    }
+  });
+}
+
+
 function updateQtyDisplay(id) {
   document.getElementById(`qty-${id}`).textContent = tempQty[id] || 0;
 }
