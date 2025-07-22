@@ -19,7 +19,7 @@ const checkoutBtn = document.getElementById('checkout-btn');
 async function fetchProductsFromSheet() {
   const loadingSpinner = document.getElementById('loading-spinner');
   loadingSpinner.style.display = 'flex';
-  const url = "https://gmbackend-r0ot.onrender.com/api/products"; // <-- your data URL or local JSON
+  const url = "https://gmbackend-r0ot.onrender.com/api/products?page=${page}"; // <-- your data URL or local JSON
 
   try {
     const res = await fetch(url);
