@@ -64,14 +64,24 @@ function setupEventListeners() {
   closeCartBtn.addEventListener("click", () => (cartOverlay.style.display = "none"));
   searchBtn.addEventListener("click", () => {
     currentSearch = searchInput.value.trim();
+      currentCategory = "all"; 
+    resetCategoryButtons();  
     resetAndLoad();
   });
   searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       currentSearch = searchInput.value.trim();
+      currentCategory = "all"; 
+      resetCategoryButtons();   
       resetAndLoad();
     }
   });
+ function resetCategoryButtons() {
+  categoryButtons.forEach((b) => b.classList.remove("active"));
+  document.querySelector('[data-category="all"]').classList.add("active");
+}
+
+  
   categoryBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       categoryBtns.forEach((b) => b.classList.remove("active"));
