@@ -311,6 +311,59 @@ function filterProductsByCategory(category) {
   renderProducts(products.filter(p => p.category === category));
 }
 
+
+
+checkoutBtn.addEventListener("click", async () => {
+  const customerName = document.getElementById("name").value;
+  const customerPhone = document.getElementById("phone").value;
+  const customerAddress = document.getElementById("address").value;
+
+  const cartItems = getCartItems(); // write this function based on your cart
+  const total = calculateTotal(cartItems); // your total calculation
+
+  const orderData = {
+    name: customerName,
+    phone: customerPhone,
+    address: customerAddress,
+    items: cartItems,
+    total: total,
+  };
+
+  // ✅ Save to backend
+  try {
+    const res = await fetch("https://gmbackend-r0ot.onrender.com/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (res.ok) {
+      console.log("✅ Order saved to DB");
+    } else {
+      console.error("❌ Failed to save order");
+    }
+  } catch (err) {
+    console.error("❌ Error sending order to backend:", err);
+  }
+
+
+function getCartItems() {
+  return JSON.parse(localStorage.getItem("cart") || "[]");
+}
+
+
+
+
+
+
+
+
+
+
+
+
 function sendWhatsAppOrder() {
   if (cart.length === 0) return alert('Your cart is empty!');
 
