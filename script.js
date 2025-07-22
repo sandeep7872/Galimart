@@ -58,16 +58,17 @@ function resetAndLoad() {
   productsContainer.innerHTML = "";
   fetchProductsFromSheet(currentPage);
 }
-
 function setupEventListeners() {
   cartBtn.addEventListener("click", () => (cartOverlay.style.display = "flex"));
   closeCartBtn.addEventListener("click", () => (cartOverlay.style.display = "none"));
+
   searchBtn.addEventListener("click", () => {
     currentSearch = searchInput.value.trim();
-      currentCategory = "all"; 
+    currentCategory = "all"; 
     resetCategoryButtons();  
     resetAndLoad();
   });
+
   searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       currentSearch = searchInput.value.trim();
@@ -76,10 +77,14 @@ function setupEventListeners() {
       resetAndLoad();
     }
   });
- function resetCategoryButtons() {
-  categoryButtons.forEach((b) => b.classList.remove("active"));
-  document.querySelector('[data-category="all"]').classList.add("active");
 }
+function resetCategoryButtons() {
+  categoryButtons.forEach((b) => b.classList.remove("active"));
+  const allBtn = document.querySelector('[data-category="all"]');
+  if (allBtn) allBtn.classList.add("active");
+}
+
+
 
   
   categoryBtns.forEach((btn) => {
