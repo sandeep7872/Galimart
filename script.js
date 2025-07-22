@@ -38,7 +38,7 @@ async function fetchProductsFromSheet(page = 1) {
       p.bulkQty = parseInt(p.bulkQty);
       p.inStock = p.inStock === true || p.inStock === "TRUE"  || p.inStock === "true";
     });
-if (newProducts.length < 20) allLoaded = true;
+if (newProducts.length < 250) allLoaded = true;
     products = [...products, ...newProducts];
     renderProducts(newProducts);
     updateCart();
