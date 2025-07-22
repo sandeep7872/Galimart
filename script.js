@@ -314,105 +314,74 @@ function filterProductsByCategory(category) {
 
 
 checkoutBtn.addEventListener("click", async () => {
-  const customerName = document.getElementById("name").value;
-  const customerPhone = document.getElementById("phone").value;
-  const customerAddress = document.getElementById("address").value;
+  const name = document.getElementById("user-name").value.trim();
+  const phone = document.getElementById("user-phone").value.trim();
+  const address = document.getElementById("user-address").value.trim();
+  const area = document.getElementById("user-area").value.trim();
 
-  const cartItems = getCartItems(); // write this function based on your cart
-  const total = calculateTotal(cartItems); // your total calculation
+  if (!name || !phone || !address || !area) {
+    alert("Please fill all customer details.");
+    return;
+  }
+
+  const cartItems = [...cart]; // cart is already in memory
+  if (cartItems.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const orderData = {
-    name: customerName,
-    phone: customerPhone,
-    address: customerAddress,
+    name,
+    phone,
+    address: `${area}, ${address}`,
     items: cartItems,
-    total: total,
+    total,
   };
 
-  // ✅ Save to backend
+  // 1. ✅ Save to DB
   try {
     const res = await fetch("https://gmbackend-r0ot.onrender.com/api/orders", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(orderData),
+      body: JSON.stringify(orderData)
     });
 
-    if (res.ok) {
-      console.log("✅ Order saved to DB");
-    } else {
-      console.error("❌ Failed to save order");
+    if (!res.ok) {
+      throw new Error("Failed to save order to backend");
     }
+    console.log("✅ Order saved to DB");
   } catch (err) {
-    console.error("❌ Error sending order to backend:", err);
-  }
-
-
-function getCartItems() {
-  return JSON.parse(localStorage.getItem("cart") || "[]");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-function sendWhatsAppOrder() {
-  if (cart.length === 0) return alert('Your cart is empty!');
-
-  const name = document.getElementById("user-name").value;
-  const phone = document.getElementById("user-phone").value;
-  const address = document.getElementById("user-address").value;
-  const area = document.getElementById("user-area").value;
-
-  if (!name || !phone || !address || !area) {
-    alert("Please fill all details");
+    console.error("❌ Error saving order:", err);
+    alert("Failed to save order. Please try again.");
     return;
   }
 
-  localStorage.setItem("user-name", name);
-  localStorage.setItem("user-phone", phone);
-  localStorage.setItem("user-address", address);
-  localStorage.setItem("user-area", area);
-
-  let message = `*Order Details:*
-`;
-  cart.forEach((item, index) => {
-    const totalPieces = item.quantity * (item.bulkQty || 1);
-    message += `${index + 1}. ${item.name} (${item.type})
-Qty: ${item.quantity}${item.type === 'bulk' ? ` (1 Bulk = ${item.bulkQty} pcs)` : ''}
-S.total: ₹${item.quantity * item.price}
-`;
+  // 2. ✅ Format WhatsApp message
+  let message = `*Order Summary:*\n`;
+  cartItems.forEach((item, index) => {
+    const pieces = item.type === "bulk" ? item.bulkQty * item.quantity : item.quantity;
+    message += `${index + 1}. ${item.name} (${item.type})\nQty: ${item.quantity}${item.type === 'bulk' ? ` (1 bulk = ${item.bulkQty})` : ''}\nSubtotal: ₹${item.price * item.quantity}\n\n`;
   });
 
-  message += `
-*Total Amount: ₹${cart.reduce((total, item) => total + item.price * item.quantity, 0)}*
+  message += `*Total: ₹${total}*\n\n*Customer:*\nName: ${name}\nPhone: ${phone}\nArea: ${area}\nAddress: ${address}\n\nTime: ${new Date().toLocaleString()}`;
 
-`;
-  message += `*Customer Details:*
-Name: ${name}
-Phone: ${phone}
-Area: ${area}
-Delivery Address: ${address}
-`;
-
-  const whatsappNumber = "916371149008"; // Replace with your number
+  // 3. ✅ Open WhatsApp
+  const whatsappNumber = "916371149008"; // your number
   const encoded = encodeURIComponent(message);
-  window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, '_blank');
+  window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
 
+  // 4. ✅ Clear cart
   cart = [];
   saveCartToStorage();
   updateCart();
+});
 
-   
-
+function getCartItems() {
+  return JSON.parse(localStorage.getItem("cart") || "[]");
 }
 
 function saveCartToStorage() {
