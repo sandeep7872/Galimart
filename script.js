@@ -68,7 +68,6 @@ function setupEventListeners() {
     resetCategoryButtons();  
     resetAndLoad();
   });
-
   searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       currentSearch = searchInput.value.trim();
@@ -77,16 +76,11 @@ function setupEventListeners() {
       resetAndLoad();
     }
   });
-}
 function resetCategoryButtons() {
   categoryButtons.forEach((b) => b.classList.remove("active"));
   const allBtn = document.querySelector('[data-category="all"]');
   if (allBtn) allBtn.classList.add("active");
 }
-
-
-
-  
   categoryBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       categoryBtns.forEach((b) => b.classList.remove("active"));
