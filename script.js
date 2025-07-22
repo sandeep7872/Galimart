@@ -76,6 +76,7 @@ function setupEventListeners() {
       resetAndLoad();
     }
   });
+}
 function resetCategoryButtons() {
   categoryButtons.forEach((b) => b.classList.remove("active"));
   const allBtn = document.querySelector('[data-category="all"]');
@@ -99,7 +100,6 @@ function resetCategoryButtons() {
       fetchProductsFromSheet(currentPage);
     }
   });
-}
 
 function renderProducts(productsToRender) {
     productsContainer.innerHTML = '';
@@ -189,7 +189,6 @@ function setupEventListeners() {
     }
   });
 }
-
 
 function updateQtyDisplay(id) {
   document.getElementById(`qty-${id}`).textContent = tempQty[id] || 0;
