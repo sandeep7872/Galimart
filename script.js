@@ -31,7 +31,7 @@ async function fetchProductsFromSheet(page = 1) {
   try {
     const res = await fetch(url);
     const newProducts = await res.json();
-    newproducts.forEach(p => {
+    newProducts.forEach(p => {
       p.id = parseInt(p.id);
       p.price = parseFloat(p.price);
       p.bulkPrice = parseFloat(p.bulkPrice);
