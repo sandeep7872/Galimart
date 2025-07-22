@@ -62,7 +62,7 @@ function renderProducts(productsToRender) {
     productCard.innerHTML = `
 
 <div class="product-image" style="position: relative;">
-  <img src="${product.image}" alt="${product.name}" style="width: 150px; height:150px; object-fit: cover;" />
+  <img src="${product.image}" alt="${product.name}" loading="lazy" style="width: 150px; height:150px; object-fit: cover;" />
   ${!product.inStock ? `
     <div style="
       position: absolute;
