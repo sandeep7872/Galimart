@@ -136,7 +136,8 @@ function updateCart() {
           </div>
         </div>
         <div class="cart-item-actions">
-          <input type="number" class="cart-qty-input" data-id="${item.id}" value="${item.quantity}" min="1" />
+          <input type="number" class="cart-qty-input" data-id="${item.id}" value="${item.quantity}" min="1" style ="width: 60px;
+          padding: 4px;text-align: center;">
           <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
         </div>
       `;
@@ -218,7 +219,22 @@ checkoutBtn.addEventListener("click", async () => {
   }
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const orderData = { name, phone, address: `${area}, ${address}`, items: cart, total };
+  // const orderData = { name, phone, address: `${area}, ${address}`, items: cart, total };
+
+        const simplifiedItems = cart.map(item => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        type: item.type,
+      }));
+      
+      const orderData = {
+        name,
+        phone,
+        address: `${area}, ${address}`,
+        items: simplifiedItems,
+        total,
+      };
 
   try {
     const res = await fetch("https://gmbackend-r0ot.onrender.com/api/orders", {
@@ -294,19 +310,16 @@ function setupEventListeners() {
     }
   });
 }
-
 function handleSearch() {
   currentSearch = searchInput.value.trim();
   currentCategory = "all";
   resetCategoryButtons();
   resetAndLoad();
 }
-
 async function init() {
   autofillUserData();
   loadCartFromStorage();
   await fetchProducts();
   setupEventListeners();
 }
-
 init();
