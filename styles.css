@@ -79,7 +79,7 @@ header {
 
 main {
     padding: 20px 5%;
-    margin-left: -10px;
+    margin-left: -15px;
 }
 
 .categories {
@@ -107,10 +107,21 @@ main {
     white-space: nowrap;
     font-size: 0.9rem;
 }
+.category-btn img {
+    width: 81px;
+    height: 118px;
+    object-fit: cover;
+    margin-bottom: 8px; 
+    border-radius: 9%;
+}
+
 
 .category-btn.active {
     background-color: #00a82d;
     color: white;
+}
+.p-producucts h2 {
+    padding: 0 0% 20px;
 }
 
 .products {
@@ -407,5 +418,3 @@ main {
     text-align: center;
     font-weight: bold;
 }
-
-
