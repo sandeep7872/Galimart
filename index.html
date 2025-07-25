@@ -7,12 +7,6 @@
   <title>like Store</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
-  <script>
-     window.supabase =  supabase.createClient(
-  "https://ffnyvmhnyxsrnxalxnqd.supabase.co/",  // ← replace with your project URL
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmbnl2bWhueXhzcm54YWx4bnFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI2NjEwNzksImV4cCI6MjA2ODIzNzA3OX0.i7SJR8h1EnBy6QnpgiXYmRbfvDb-_oYqPCVH6YdMppo"                         // ← replace with your anon key
-);
-  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 </head>
 <body>
@@ -36,23 +30,34 @@
 
   <main>
     <section class="categories">
-      <h2>Categories</h2>
+      <h2>Shop by Category</h2>
       <div class="category-list">
-        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn active" data-category="all"><img src="pngs/all.png" alt=""></button>
         <!-- <button class="category-btn" data-category="fruits">Fruits</button> -->
-        <button class="category-btn" data-category="biscuit">Biscuit</button>
-        <button class="category-btn" data-category="dairy">Dairy</button>
-        <button class="category-btn" data-category="snacks">Snacks</button>
-        <button class="category-btn" data-category="drink">Drinks</button>
-        <button class="category-btn" data-category="chocolate">Chocolate</button>
-        <button class="category-btn" data-category="kurkure">Kurkure</button>
-        <button class="category-btn" data-category="noodles">Noodles</button>
+        <div class="category-btn" data-category="biscuit"><img src="pngs/bict&cookie.png" alt=></div>
+        <div class="category-btn" data-category="dairy">  <img src="pngs/dairy.png" alt=></div>
+        <div class="category-btn" data-category="snacks"><img src="pngs/frozenfood.png" alt=></div>
+        <div class="category-btn" data-category="drink"><img src="pngs/drinks.png" alt=></div>
+        <div class="category-btn" data-category="chocolate"><img src="pngs/chocolate.png" alt=></div>
+        <div class="category-btn" data-category="kurkure"><img src="pngs/munchies.png" alt=></div>
+        <div class="category-btn" data-category="atta&rice"><img src="pngs/atta&rice.png" alt=></div>
+        <div class="category-btn" data-category="breakfast"><img src="pngs/Breakfast.png" alt=></div>
+        <div class="category-btn" data-category="oils"><img src="pngs/oil.png" alt=></div>
+        <div class="category-btn" data-category="tea"><img src="pngs/tea.png" alt=></div>
+        <div class="category-btn" data-category="packagedfood"><img src="pngs/packaged food.png" alt=></div>
+        <div class="category-btn" data-category="stationary&books"><img src="pngs/stationary&books.png" alt=></div>
+        <div class="category-btn" data-category="fruits&veg"><img src="pngs/fruits&veg.png" alt=></div>
+        <div class="category-btn" data-category="masala"><img src="pngs/masala.png" alt=></div>
+        <div class="category-btn" data-category="cleaningessential"><img src="pngs/cleaningessential.png" alt=></div>
       </div>
     </section>
-    <div id="product-container" class="grid-container"></div>
-     <section class="products" id="products-container" >
+    <div class="p-producucts">
+      <h2>Popular Products</h2>
+    <section class="products" id="products-container">
+      
       <!-- Products will be loaded here dynamically -->
     </section>
+    </div>
 
     <div class="cart-overlay" id="cart-overlay">
       <div class="cart-modal">
@@ -88,7 +93,6 @@
     <div class="spinner"></div>
     <p>Loading products...</p>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
