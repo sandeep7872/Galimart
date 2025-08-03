@@ -82,7 +82,7 @@ function renderProducts(productsToRender) {
 
     productCard.innerHTML = `
       <div class="product-image" style="position: relative;">
-        <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" style="width: 150px; height:150px; object-fit: cover;" />
+        <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" style="width: 150px; height:150px; object-fit: cover cursor: pointer;" class="enlarge-image" data-src="${product.image}" />
         ${isDisabled ? `<div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(198,187,187,0.83);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;border-radius:300px;transform:rotate(-45deg);z-index:2;">OUT OF STOCK</div>` : ''}
       </div>
       <div class="product-info">
