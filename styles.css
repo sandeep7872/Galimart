@@ -418,3 +418,13 @@ main {
     text-align: center;
     font-weight: bold;
 }
+
+#imageModal {
+  transition: opacity 0.3s ease;
+}
+#closeModal:hover {
+  color: #ff4444;
+  transform: scale(1.1);
+}
+
+
