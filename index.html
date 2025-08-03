@@ -118,65 +118,6 @@
     <p></p>
   </div>
 
-  <!-- ✅ SCRIPT -->
-  <script>
-    const productsContainer = document.getElementById('products-container');
-
-    function renderProducts(productsToRender) {
-      productsContainer.innerHTML = '';
-      productsToRender.forEach(product => {
-        const isDisabled = !product.inStock;
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.dataset.category = product.category;
-
-        productCard.innerHTML = `
-          <div class="product-image" style="position: relative;">
-            <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" style="width: 150px; height:150px; object-fit: cover; cursor: pointer;" class="enlarge-image" data-src="${product.image}" />
-            ${isDisabled ? `<div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(198,187,187,0.83);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;border-radius:300px;transform:rotate(-45deg);z-index:2;">OUT OF STOCK</div>` : ''}
-          </div>
-          <div class="product-info">
-            <h3 class="product-name">${product.name}</h3>
-            <p class="product-price">₹${product.price} <small>(Single)</small></p>
-            <p class="product-price">₹${product.bulkPrice} <small>(Bulk: ${product.bulkQty} pcs)</small></p>
-            <select class="price-type" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>
-              <option value="single">Single</option>
-              <option value="bulk">Bulk</option>
-            </select>
-            ${product.description ? `<p class="product-description">${product.description}</p>` : ''}
-            <div class="quantity-buttons" data-id="${product.id}">
-              <button class="qty-minus" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>-</button>
-              <span class="qty-display" id="qty-${product.id}">0</span>
-              <button class="qty-plus" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>+</button>
-              <button class="add-to-cart" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>Add</button>
-            </div>
-          </div>
-        `;
-        productsContainer.appendChild(productCard);
-      });
-    }
-
-    // Modal logic
-    document.addEventListener('click', function (e) {
-      if (e.target.classList.contains('enlarge-image')) {
-        const src = e.target.getAttribute('data-src');
-        document.getElementById('modalImage').src = src;
-        document.getElementById('imageModal').style.display = 'flex';
-      }
-    });
-
-    document.getElementById('imageModal').addEventListener('click', function (e) {
-      if (e.target.id === 'imageModal') {
-        this.style.display = 'none';
-      }
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function () {
-      document.getElementById('imageModal').style.display = 'none';
-    });
-
-    // Example use:
-    // renderProducts([{ id: 1, name: "Test Product", price: 100, bulkPrice: 90, bulkQty: 10, image: "https://via.placeholder.com/150", description: "Sample desc", inStock: true, category: "test" }]);
-  </script>
+ 
 </body>
 </html>
