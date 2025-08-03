@@ -106,6 +106,29 @@ function renderProducts(productsToRender) {
   });
 }
 
+// Modal open on image click
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('enlarge-image')) {
+    const src = e.target.getAttribute('data-src');
+    document.getElementById('modalImage').src = src;
+    document.getElementById('imageModal').style.display = 'flex';
+  }
+});
+
+// Close modal when clicking the background
+document.getElementById('imageModal').addEventListener('click', function (e) {
+  if (e.target.id === 'imageModal') {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+});
+
+// Close modal when clicking the X button
+document.getElementById('closeModal').addEventListener('click', function () {
+  document.getElementById('imageModal').style.display = 'none';
+});
+
+
+
 // ──────── 🛒 CART LOGIC ──────── //
 function updateQtyDisplay(id) {
   document.getElementById(`qty-${id}`).textContent = tempQty[id] || 0;
