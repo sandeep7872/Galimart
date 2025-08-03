@@ -1,37 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <meta name="google-site-verification" content="v9NZuTtwbd5oucbAzXpvQL9XhxQid6P6Z1mYWT46D1c" />
+  <meta name="google-site-verification" content="v9NZuTtwbd5oucbAzXpvQL9XhxQid6P6Z1mYWT46D1c" />
   <title>Quickmers</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
   <style>
-   .loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  
-  border-right: 16px solid green;
- 
-  border-left: 16px solid green;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-right: 16px solid green;
+      border-left: 16px solid green;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+    }
 
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+    .product-image img {
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -39,7 +34,6 @@
     <div class="logo">
       <h1>Quickmers</h1>
       <p>From One Piece to Wholesale – We've Got You.</p>
-      <!-- <p>Scroll. Click. Buy. Brag.</p> -->
     </div>
     <div class="search-bar">
       <input type="text" placeholder="Search for products..." id="search-input" />
@@ -58,30 +52,29 @@
       <h2>Shop by Category</h2>
       <div class="category-list">
         <button class="category-btn active" data-category="all"><img src="pngs/all.png" alt=""></button>
-        <!-- <button class="category-btn" data-category="fruits">Fruits</button> -->
-        <div class="category-btn" data-category="biscuit"><img src="pngs/bict&cookie.png" alt=></div>
-        <div class="category-btn" data-category="dairy">  <img src="pngs/dairy.png" alt=></div>
-        <div class="category-btn" data-category="kurkure"><img src="pngs/frozenfood.png" alt=></div>
-        <div class="category-btn" data-category="drink"><img src="pngs/drinks.png" alt=></div>
-        <div class="category-btn" data-category="chocolate"><img src="pngs/chocolate.png" alt=></div>
-        <div class="category-btn" data-category="kurkure"><img src="pngs/munchies.png" alt=></div>
-        <div class="category-btn" data-category="atta&rice"><img src="pngs/atta&rice.png" alt=></div>
-        <div class="category-btn" data-category="breakfast"><img src="pngs/Breakfast.png" alt=></div>
-        <div class="category-btn" data-category="oil"><img src="pngs/oil.png" alt=></div>
-        <div class="category-btn" data-category="tea"><img src="pngs/tea.png" alt=></div>
-        <div class="category-btn" data-category="packagedfood"><img src="pngs/packaged food.png" alt=></div>
-        <div class="category-btn" data-category="stationary&books"><img src="pngs/stationary&books.png" alt=></div>
-        <div class="category-btn" data-category="fruits&veg"><img src="pngs/fruits&veg.png" alt=></div>
-        <div class="category-btn" data-category="masala"><img src="pngs/masala.png" alt=></div>
-        <div class="category-btn" data-category="surf"><img src="pngs/cleaningessential.png" alt=></div>
+        <div class="category-btn" data-category="biscuit"><img src="pngs/bict&cookie.png" alt=""></div>
+        <div class="category-btn" data-category="dairy"><img src="pngs/dairy.png" alt=""></div>
+        <div class="category-btn" data-category="kurkure"><img src="pngs/frozenfood.png" alt=""></div>
+        <div class="category-btn" data-category="drink"><img src="pngs/drinks.png" alt=""></div>
+        <div class="category-btn" data-category="chocolate"><img src="pngs/chocolate.png" alt=""></div>
+        <div class="category-btn" data-category="kurkure"><img src="pngs/munchies.png" alt=""></div>
+        <div class="category-btn" data-category="atta&rice"><img src="pngs/atta&rice.png" alt=""></div>
+        <div class="category-btn" data-category="breakfast"><img src="pngs/Breakfast.png" alt=""></div>
+        <div class="category-btn" data-category="oil"><img src="pngs/oil.png" alt=""></div>
+        <div class="category-btn" data-category="tea"><img src="pngs/tea.png" alt=""></div>
+        <div class="category-btn" data-category="packagedfood"><img src="pngs/packaged food.png" alt=""></div>
+        <div class="category-btn" data-category="stationary&books"><img src="pngs/stationary&books.png" alt=""></div>
+        <div class="category-btn" data-category="fruits&veg"><img src="pngs/fruits&veg.png" alt=""></div>
+        <div class="category-btn" data-category="masala"><img src="pngs/masala.png" alt=""></div>
+        <div class="category-btn" data-category="surf"><img src="pngs/cleaningessential.png" alt=""></div>
       </div>
     </section>
+
     <div class="p-producucts">
       <h2>Popular Products</h2>
-    <section class="products" id="products-container">
-      
-      <!-- Products will be loaded here dynamically -->
-    </section>
+      <section class="products" id="products-container">
+        <!-- Products will be loaded here dynamically -->
+      </section>
     </div>
 
     <div class="cart-overlay" id="cart-overlay">
@@ -105,11 +98,6 @@
             <option value="Sunabeda">Sunabeda</option>
           </select>
         </div>
-       <!-- Image Modal -->
-     <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9999; flex-direction: column;">
-     <span id="closeModal" style="position:absolute; top:20px; right:30px; font-size:40px; font-weight:bold; color:white; cursor:pointer;">&times;</span>
-     <img id="modalImage" src="" alt="Product Image" style="max-width:90%; max-height:90%; border-radius:10px;">
-     </div>
 
         <div class="cart-total">
           <p>Total: ₹<span id="cart-total-amount">0</span></p>
@@ -119,10 +107,76 @@
     </div>
   </main>
 
+  <!-- ✅ MODAL OUTSIDE CART -->
+  <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9999; flex-direction: column;">
+    <span id="closeModal" style="position:absolute; top:20px; right:30px; font-size:40px; font-weight:bold; color:white; cursor:pointer;">&times;</span>
+    <img id="modalImage" src="" alt="Product Image" style="max-width:90%; max-height:90%; border-radius:10px;">
+  </div>
+
   <div id="loading-spinner" class="loader">
     <div class="spinner"></div>
     <p></p>
   </div>
-  <script src="script.js"></script>
+
+  <!-- ✅ SCRIPT -->
+  <script>
+    const productsContainer = document.getElementById('products-container');
+
+    function renderProducts(productsToRender) {
+      productsContainer.innerHTML = '';
+      productsToRender.forEach(product => {
+        const isDisabled = !product.inStock;
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.dataset.category = product.category;
+
+        productCard.innerHTML = `
+          <div class="product-image" style="position: relative;">
+            <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" style="width: 150px; height:150px; object-fit: cover; cursor: pointer;" class="enlarge-image" data-src="${product.image}" />
+            ${isDisabled ? `<div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(198,187,187,0.83);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;border-radius:300px;transform:rotate(-45deg);z-index:2;">OUT OF STOCK</div>` : ''}
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">${product.name}</h3>
+            <p class="product-price">₹${product.price} <small>(Single)</small></p>
+            <p class="product-price">₹${product.bulkPrice} <small>(Bulk: ${product.bulkQty} pcs)</small></p>
+            <select class="price-type" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>
+              <option value="single">Single</option>
+              <option value="bulk">Bulk</option>
+            </select>
+            ${product.description ? `<p class="product-description">${product.description}</p>` : ''}
+            <div class="quantity-buttons" data-id="${product.id}">
+              <button class="qty-minus" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>-</button>
+              <span class="qty-display" id="qty-${product.id}">0</span>
+              <button class="qty-plus" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>+</button>
+              <button class="add-to-cart" data-id="${product.id}" ${isDisabled ? 'disabled' : ''}>Add</button>
+            </div>
+          </div>
+        `;
+        productsContainer.appendChild(productCard);
+      });
+    }
+
+    // Modal logic
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('enlarge-image')) {
+        const src = e.target.getAttribute('data-src');
+        document.getElementById('modalImage').src = src;
+        document.getElementById('imageModal').style.display = 'flex';
+      }
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function (e) {
+      if (e.target.id === 'imageModal') {
+        this.style.display = 'none';
+      }
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+      document.getElementById('imageModal').style.display = 'none';
+    });
+
+    // Example use:
+    // renderProducts([{ id: 1, name: "Test Product", price: 100, bulkPrice: 90, bulkQty: 10, image: "https://via.placeholder.com/150", description: "Sample desc", inStock: true, category: "test" }]);
+  </script>
 </body>
 </html>
