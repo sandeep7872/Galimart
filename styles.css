@@ -23,7 +23,7 @@ header {
 }
 
 .logo h1 {
-    font-size: 1.8rem;
+    font-size: 3.8rem;
     font-weight: 700;
 }
 
@@ -426,5 +426,6 @@ main {
   color: #ff4444;
   transform: scale(1.1);
 }
+
 
 
